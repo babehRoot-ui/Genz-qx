@@ -22,7 +22,6 @@ h1,h2,h3,.brand{font-family:'Orbitron',sans-serif;}
 ::-webkit-scrollbar-track{background:rgba(0,0,0,0.3);}
 ::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px;}
 
-/* ===== EFEK FREEZE KLIK ===== */
 @keyframes freezeFrame{
 0%{transform:scale(1);filter:brightness(1);}
 15%{transform:scale(0.97);filter:brightness(1.6) saturate(0.3);}
@@ -31,7 +30,6 @@ h1,h2,h3,.brand{font-family:'Orbitron',sans-serif;}
 }
 .freeze-click{animation:freezeFrame .35s cubic-bezier(.2,.8,.3,1) both !important;pointer-events:none;}
 
-/* ===== EFEK RIPPLE ===== */
 .ripple-wrap{position:relative;overflow:hidden;}
 .ripple-circle{
 position:absolute;border-radius:50%;
@@ -40,7 +38,6 @@ transform:scale(0);animation:rippleOut .6s ease-out forwards;pointer-events:none
 }
 @keyframes rippleOut{to{transform:scale(4);opacity:0;}}
 
-/* ===== GLOW BOX (bukan banner) ===== */
 .glow-box{
 background:var(--card);backdrop-filter:blur(16px);
 border:1px solid var(--border);border-radius:14px;
@@ -52,16 +49,18 @@ box-shadow:0 0 28px var(--glow),inset 0 0 20px rgba(184,61,255,0.05);
 border-color:rgba(184,61,255,0.4);
 }
 
-/* ===== LAYAR ===== */
-.screen{position:fixed;inset:0;z-index:1;display:none;opacity:0;transition:opacity .5s ease;}
-.screen.active{display:flex;opacity:1;z-index:10;}
+.screen{
+position:fixed;inset:0;z-index:1;
+opacity:0;visibility:hidden;
+transition:opacity .45s ease, visibility .45s ease;
+}
+.screen.active{opacity:1;visibility:visible;z-index:10;}
 .screen video.bg-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .screen .overlay{position:absolute;inset:0;z-index:1;}
 .overlay-dark{background:rgba(10,7,16,0.6);}
 .overlay-heavy{background:rgba(10,7,16,0.78);}
 .screen .content-layer{position:relative;z-index:2;width:100%;height:100%;}
 
-/* ===== BG ANIMATED (bukan pelangi, pure purple) ===== */
 .bg-animated{position:absolute;inset:0;z-index:0;overflow:hidden;}
 .bg-animated::before{
 content:'';position:absolute;width:140%;height:140%;top:-20%;left:-20%;
@@ -69,10 +68,7 @@ background:radial-gradient(ellipse at 30% 30%,rgba(184,61,255,0.08) 0%,transpare
 radial-gradient(ellipse at 70% 70%,rgba(138,31,212,0.06) 0%,transparent 50%);
 animation:driftBg 20s ease-in-out infinite alternate;
 }
-@keyframes driftBg{
-0%{transform:translate(0,0) scale(1);}
-100%{transform:translate(-5%,3%) scale(1.1);}
-}
+@keyframes driftBg{0%{transform:translate(0,0) scale(1);}100%{transform:translate(-5%,3%) scale(1.1);}}
 .bg-animated::after{
 content:'';position:absolute;inset:0;
 background:radial-gradient(circle at 50% 50%,rgba(184,61,255,0.04) 0%,transparent 70%);
@@ -80,17 +76,14 @@ animation:pulseBg 6s ease-in-out infinite alternate;
 }
 @keyframes pulseBg{0%{opacity:.5;}100%{opacity:1;}}
 
-/* ===== NOISE OVERLAY (ganti scanline) ===== */
 .noise-overlay{
 position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.025;
 background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 background-size:128px 128px;
 }
 
-/* ===== PARTIKEL (pure purple) ===== */
 #particles{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-/* ===== TOAST ===== */
 #toast-container{position:fixed;top:20px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:10px;}
 .toast{
 padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;
@@ -104,7 +97,6 @@ box-shadow:0 0 20px var(--glow-soft);background:var(--card);
 @keyframes toastIn{from{transform:translateX(80px);opacity:0;}to{transform:translateX(0);opacity:1;}}
 @keyframes toastOut{from{opacity:1;}to{transform:translateX(80px);opacity:0;}}
 
-/* ==================== LOGIN ==================== */
 #login-screen{align-items:center;justify-content:center;flex-direction:column;}
 .login-card{
 background:var(--card);backdrop-filter:blur(24px);
@@ -115,13 +107,11 @@ box-shadow:0 0 40px var(--glow-soft),0 0 80px rgba(184,61,255,0.06);
 transition:box-shadow .4s;
 }
 .login-card:hover{box-shadow:0 0 50px var(--glow),0 0 100px rgba(184,61,255,0.08);}
-/* Garis glow atas */
 .login-card::before{
 content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
 background:linear-gradient(90deg,transparent,var(--accent),transparent);
 box-shadow:0 0 12px var(--glow),0 0 30px var(--glow-soft);
 }
-/* Garis glow bawah */
 .login-card::after{
 content:'';position:absolute;bottom:0;left:15%;right:15%;height:1px;
 background:linear-gradient(90deg,transparent,rgba(184,61,255,0.5),transparent);
@@ -134,11 +124,13 @@ display:flex;align-items:center;justify-content:center;
 margin:0 auto 16px;font-family:'Orbitron';font-weight:900;font-size:15px;color:#fff;
 box-shadow:0 0 24px var(--glow);
 }
-.login-card h1{
-font-size:20px;letter-spacing:4px;margin-bottom:4px;
-color:var(--fg);
+.login-card h1{font-size:20px;letter-spacing:4px;margin-bottom:4px;color:var(--fg);}
+.login-card .subtitle{color:var(--muted);font-size:14px;margin-bottom:8px;}
+.login-error{
+color:var(--red);font-size:13px;min-height:20px;margin-bottom:12px;
+opacity:0;transition:opacity .25s;
 }
-.login-card .subtitle{color:var(--muted);font-size:14px;margin-bottom:28px;}
+.login-error.show{opacity:1;}
 .input-group{position:relative;margin-bottom:16px;text-align:left;}
 .input-group label{font-size:11px;color:var(--muted);margin-bottom:5px;display:block;letter-spacing:1.5px;text-transform:uppercase;}
 .input-group input{
@@ -156,15 +148,17 @@ width:100%;padding:14px;
 background:linear-gradient(135deg,var(--accent),var(--accent2));
 border:none;border-radius:12px;color:#fff;font-family:'Orbitron';font-size:14px;
 letter-spacing:3px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
-box-shadow:0 0 20px var(--glow-soft);
+box-shadow:0 0 20px var(--glow-soft);min-height:48px;
+display:flex;align-items:center;justify-content:center;gap:8px;
 }
-.btn-signin:hover{
-box-shadow:0 0 36px var(--glow);
-transform:translateY(-1px);
-}
+.btn-signin:hover{box-shadow:0 0 36px var(--glow);transform:translateY(-1px);}
+.btn-signin.loading{pointer-events:none;opacity:.7;}
+.btn-signin .spinner{display:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;}
+.btn-signin.loading .spinner{display:block;}
+.btn-signin.loading .btn-text{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
 .login-footer{margin-top:24px;font-size:11px;color:var(--muted);letter-spacing:1px;}
 
-/* ==================== INTRO ==================== */
 #intro-screen{align-items:center;justify-content:center;}
 #intro-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
 .skip-popup{
@@ -173,16 +167,12 @@ background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border)
 border-radius:12px;padding:12px 24px;cursor:pointer;transition:all .3s;
 box-shadow:0 0 20px var(--glow-soft);
 }
-.skip-popup:hover{
-box-shadow:0 0 32px var(--glow);border-color:rgba(184,61,255,0.4);
-}
+.skip-popup:hover{box-shadow:0 0 32px var(--glow);border-color:rgba(184,61,255,0.4);}
 .skip-popup span{font-family:'Orbitron';font-size:12px;letter-spacing:2px;color:var(--accent);}
 
-/* ==================== MAIN ==================== */
 #main-screen{flex-direction:column;align-items:stretch;}
 #main-screen .content-layer{overflow-y:auto;overflow-x:hidden;}
 
-/* ===== TOMBOL MENU ===== */
 #menu-btn{
 position:fixed;top:16px;right:16px;z-index:100;width:46px;height:46px;
 border-radius:12px;background:var(--card);backdrop-filter:blur(12px);
@@ -196,7 +186,6 @@ transition:all .3s;box-shadow:0 0 14px var(--glow-soft);
 #menu-btn.open span:nth-child(2){opacity:0;}
 #menu-btn.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
-/* ===== DASHBOARD PANEL ===== */
 #dashboard-panel{
 position:fixed;top:0;right:-310px;width:290px;height:100%;z-index:90;
 background:var(--card);backdrop-filter:blur(24px);
@@ -219,21 +208,18 @@ box-shadow:0 0 16px var(--glow-soft);
 }
 .dash-menu-item i{width:18px;text-align:center;font-size:14px;color:var(--accent);}
 .dash-menu-item span{font-size:14px;font-weight:600;letter-spacing:.5px;}
-.dash-overlay{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,0.35);display:none;backdrop-filter:blur(2px);}
-.dash-overlay.show{display:block;}
+.dash-overlay{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,0.35);visibility:hidden;opacity:0;transition:all .3s;backdrop-filter:blur(2px);}
+.dash-overlay.show{visibility:visible;opacity:1;}
 
-/* ===== BANNER VIDEO (tanpa glow) ===== */
 .banner-vid{width:100%;height:150px;border-radius:12px;overflow:hidden;position:relative;margin-bottom:20px;border:1px solid rgba(255,255,255,0.06);}
 .banner-vid video{width:100%;height:100%;object-fit:cover;}
 .banner-vid .banner-fallback{position:absolute;inset:0;background:linear-gradient(135deg,rgba(184,61,255,0.08),rgba(138,31,212,0.05));display:flex;align-items:center;justify-content:center;}
 .banner-vid .banner-fallback i{font-size:28px;color:var(--accent);opacity:.25;}
 
-/* ===== SUB KONTEN ===== */
 .sub-content{display:none;padding:20px;max-width:900px;margin:0 auto;width:100%;padding-top:68px;min-height:100vh;}
 .sub-content.active{display:block;animation:fadeUp .4s ease both;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
 
-/* ===== BIO GRID ===== */
 .bio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;padding:20px;max-width:900px;margin:0 auto;width:100%;padding-top:68px;}
 .bio-block{overflow:hidden;transition:all .35s;cursor:default;position:relative;}
 .bio-block:hover{transform:translateY(-3px);}
@@ -243,60 +229,30 @@ box-shadow:0 0 16px var(--glow-soft);
 .bio-block-body{padding:14px;}
 .bio-block-body .platform{font-family:'Orbitron';font-size:10px;letter-spacing:2px;color:var(--accent);margin-bottom:5px;opacity:.8;}
 .bio-block-body .desc{font-size:13px;color:var(--muted);line-height:1.5;}
-.bio-block .delete-bio{
-position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;
-background:rgba(255,77,106,0.15);border:1px solid rgba(255,77,106,0.3);
-color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;
-font-size:11px;opacity:0;transition:all .3s;
-}
+.bio-block .delete-bio{position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:7px;background:rgba(255,77,106,0.15);border:1px solid rgba(255,77,106,0.3);color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;opacity:0;transition:all .3s;}
 .bio-block:hover .delete-bio{opacity:1;}
 .empty-state{text-align:center;padding:80px 20px;color:var(--muted);}
 .empty-state i{font-size:40px;margin-bottom:14px;opacity:.2;display:block;}
 .empty-state p{font-size:15px;}
 
-/* ===== FORM ===== */
 .form-section{margin-bottom:18px;}
 .form-label{display:block;font-size:11px;color:var(--muted);margin-bottom:5px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
-.form-input,.form-select,.form-textarea{
-width:100%;padding:12px 15px;background:rgba(255,255,255,0.025);
-border:1px solid var(--border);border-radius:10px;color:var(--fg);
-font-family:'Rajdhani';font-size:15px;outline:none;transition:all .3s;
-}
-.form-input:focus,.form-select:focus,.form-textarea:focus{
-border-color:var(--accent);box-shadow:0 0 14px var(--glow-soft);
-}
+.form-input,.form-select,.form-textarea{width:100%;padding:12px 15px;background:rgba(255,255,255,0.025);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:'Rajdhani';font-size:15px;outline:none;transition:all .3s;}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 14px var(--glow-soft);}
 .form-textarea{min-height:90px;resize:vertical;}
-.form-select{
-cursor:pointer;appearance:none;
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%237a6b8e' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
-background-repeat:no-repeat;background-position:right 14px center;
-}
+.form-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%237a6b8e' d='M5 7L0 2h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
 .form-select option{background:#130d1e;color:var(--fg);}
-.btn-primary{
-padding:12px 26px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-border:none;border-radius:10px;color:#fff;font-family:'Orbitron';font-size:12px;
-letter-spacing:2px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
-box-shadow:0 0 18px var(--glow-soft);
-}
+.btn-primary{padding:12px 26px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;color:#fff;font-family:'Orbitron';font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;box-shadow:0 0 18px var(--glow-soft);}
 .btn-primary:hover{box-shadow:0 0 30px var(--glow);transform:translateY(-1px);}
-.btn-secondary{
-padding:10px 20px;background:rgba(255,255,255,0.04);
-border:1px solid var(--border);border-radius:10px;color:var(--fg);
-font-family:'Rajdhani';font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;
-}
+.btn-secondary{padding:10px 20px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;color:var(--fg);font-family:'Rajdhani';font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;}
 .btn-secondary:hover{border-color:rgba(184,61,255,0.4);box-shadow:0 0 14px var(--glow-soft);}
 
-/* ===== DROP ZONE ===== */
-.drop-zone{
-border:1px dashed var(--border);border-radius:12px;padding:36px 20px;
-text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;
-}
+.drop-zone{border:1px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
 .drop-zone:hover,.drop-zone.dragover{border-color:var(--accent);box-shadow:0 0 18px var(--glow-soft);background:rgba(184,61,255,0.02);}
 .drop-zone i{font-size:32px;color:var(--accent);opacity:.3;margin-bottom:10px;display:block;}
 .drop-zone p{color:var(--muted);font-size:13px;}
 .drop-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;}
 
-/* ===== TERMINAL ===== */
 .terminal-container{background:#080610;border:1px solid rgba(77,255,145,0.1);border-radius:12px;overflow:hidden;margin:16px 0;}
 .terminal-header{padding:7px 14px;background:rgba(77,255,145,0.03);border-bottom:1px solid rgba(77,255,145,0.08);display:flex;align-items:center;gap:7px;}
 .terminal-dot{width:9px;height:9px;border-radius:50%;}
@@ -317,11 +273,9 @@ text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:h
 .terminal-chat button{padding:8px 14px;background:rgba(77,255,145,0.06);border:1px solid rgba(77,255,145,0.15);border-radius:8px;color:var(--green);cursor:pointer;font-size:12px;transition:all .3s;}
 .terminal-chat button:hover{background:rgba(77,255,145,0.12);}
 
-/* ===== PROGRESS BAR ===== */
 .progress-wrap{background:rgba(255,255,255,0.03);border-radius:6px;height:6px;overflow:hidden;margin:12px 0;border:1px solid rgba(184,61,255,0.1);}
 .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:6px;width:0%;transition:width .3s;box-shadow:0 0 10px var(--glow);}
 
-/* ===== UPLOAD RESULT ===== */
 .upload-result{margin-top:16px;padding:14px;background:rgba(184,61,255,0.04);border:1px solid var(--border);border-radius:12px;display:none;}
 .upload-result.show{display:block;animation:fadeUp .3s ease;}
 .upload-result .link-box{display:flex;gap:8px;align-items:center;margin-top:8px;}
@@ -329,20 +283,9 @@ text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:h
 .upload-result .link-box button{padding:10px 14px;background:rgba(184,61,255,0.08);border:1px solid var(--border);border-radius:8px;color:var(--accent);cursor:pointer;white-space:nowrap;transition:all .3s;font-size:13px;}
 .upload-result .link-box button:hover{background:rgba(184,61,255,0.15);box-shadow:0 0 12px var(--glow-soft);}
 
-/* ===== MUSIC WIDGET ===== */
-#music-widget{
-position:fixed;bottom:18px;left:18px;z-index:100;
-background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);
-border-radius:12px;padding:8px 14px;display:none;align-items:center;gap:10px;
-min-width:190px;box-shadow:0 0 18px var(--glow-soft);
-}
-#music-widget.show{display:flex;}
-#music-widget .mw-btn{
-width:34px;height:34px;border-radius:50%;
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-border:none;color:#fff;cursor:pointer;display:flex;align-items:center;
-justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
-}
+#music-widget{position:fixed;bottom:18px;left:18px;z-index:100;background:var(--card);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:12px;padding:8px 14px;visibility:hidden;opacity:0;align-items:center;gap:10px;min-width:190px;box-shadow:0 0 18px var(--glow-soft);transition:visibility .3s,opacity .3s;}
+#music-widget.show{visibility:visible;opacity:1;display:flex;}
+#music-widget .mw-btn{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;}
 #music-widget .mw-btn:hover{box-shadow:0 0 16px var(--glow);}
 #music-widget .mw-info{overflow:hidden;flex:1;}
 #music-widget .mw-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px;}
@@ -357,16 +300,12 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
 @keyframes visBar{to{height:3px;}}
 .mw-visualizer.paused span{animation-play-state:paused;}
 
-/* ===== SETTINGS ===== */
 .settings-group{margin-bottom:22px;}
 .settings-group h3{font-family:'Orbitron';font-size:11px;letter-spacing:2px;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);opacity:.8;}
 .settings-item{margin-bottom:10px;}
 .settings-item label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;}
-
-/* ===== SECTION HEADING ===== */
 .section-heading{font-family:'Orbitron';font-size:16px;letter-spacing:3px;color:var(--accent);margin-bottom:18px;opacity:.9;}
 
-/* ===== RESPONSIF ===== */
 @media(max-width:640px){
   .login-card{padding:28px 20px;}
   .bio-grid{grid-template-columns:1fr;padding:16px;padding-top:68px;}
@@ -386,7 +325,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
 <canvas id="particles"></canvas>
 <div id="toast-container"></div>
 
-<!-- ==================== LOGIN ==================== -->
 <div id="login-screen" class="screen active">
   <div class="bg-animated"></div>
   <video id="login-bg-video" class="bg-vid" loop muted playsinline></video>
@@ -396,21 +334,24 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       <div class="login-icon">GXQ</div>
       <h1>GENZ X QX</h1>
       <p class="subtitle">Welcome back, Masukkan Akunmu</p>
+      <div class="login-error" id="login-error"></div>
       <div class="input-group">
         <label>Username</label>
-        <input type="text" id="login-user" placeholder="Masukkan username..." autocomplete="off">
+        <input type="text" id="login-user" placeholder="Masukkan username..." autocomplete="off" spellcheck="false">
       </div>
       <div class="input-group">
         <label>Password</label>
         <input type="password" id="login-pass" placeholder="Masukkan password...">
       </div>
-      <button class="btn-signin ripple-wrap" id="btn-login">SiGN iN &rarr;</button>
+      <button class="btn-signin ripple-wrap" id="btn-login">
+        <div class="spinner"></div>
+        <span class="btn-text">SiGN iN &rarr;</span>
+      </button>
       <div class="login-footer">GENZ TEAM v1.0 &copy; 2025</div>
     </div>
   </div>
 </div>
 
-<!-- ==================== INTRO ==================== -->
 <div id="intro-screen" class="screen">
   <video id="intro-video" playsinline></video>
   <div class="overlay overlay-dark"></div>
@@ -419,7 +360,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
   </div>
 </div>
 
-<!-- ==================== MAIN ==================== -->
 <div id="main-screen" class="screen">
   <div class="bg-animated"></div>
   <video id="main-bg-video" class="bg-vid" loop muted playsinline></video>
@@ -451,7 +391,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       <div class="mw-visualizer paused" id="mw-vis"><span></span><span></span><span></span><span></span><span></span></div>
     </div>
 
-    <!-- HOME -->
     <div id="home-view" class="sub-content active">
       <div class="banner-vid" id="main-banner">
         <video id="main-banner-video" loop muted playsinline></video>
@@ -462,7 +401,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       </div>
     </div>
 
-    <!-- DEPLOY -->
     <div id="deploy-view" class="sub-content">
       <div class="banner-vid" id="deploy-banner">
         <video id="deploy-banner-video" loop muted playsinline></video>
@@ -493,7 +431,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       <div class="progress-wrap" id="deploy-progress-wrap" style="display:none;"><div class="progress-bar" id="deploy-progress-bar"></div></div>
     </div>
 
-    <!-- UPLOAD -->
     <div id="upload-view" class="sub-content">
       <div class="banner-vid" id="upload-banner">
         <video id="upload-banner-video" loop muted playsinline></video>
@@ -512,7 +449,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       </div>
     </div>
 
-    <!-- BIODATA -->
     <div id="bio-view" class="sub-content">
       <h2 class="section-heading">INPUT BIODATA</h2>
       <div class="form-section">
@@ -531,7 +467,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       <button class="btn-primary ripple-wrap" id="btn-save-bio" style="width:100%;"><i class="fas fa-save" style="margin-right:8px;"></i>SIMPAN BIODATA</button>
     </div>
 
-    <!-- MUSIC -->
     <div id="music-view" class="sub-content">
       <h2 class="section-heading">PLAY MUSIK</h2>
       <div class="form-section">
@@ -549,7 +484,6 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
       </div>
     </div>
 
-    <!-- SETTINGS -->
     <div id="settings-view" class="sub-content">
       <h2 class="section-heading">SETTING</h2>
       <div class="settings-group">
@@ -573,8 +507,8 @@ justify-content:center;font-size:12px;transition:all .3s;flex-shrink:0;
 <audio id="global-audio" loop></audio>
 
 <script>
-/* ===== KONFIGURASI ===== */
-const CONFIG = {
+/* ===== CONFIG ===== */
+var CONFIG={
   loginUser:'Babehmodss',
   loginPass:'426fa66366d8b6c9A1!b8973f10',
   vercelToken:'vcp_43v8DSNzeGuPNXr09tfoi3u5GPwyyWNq4yorCDhOfJICvNJslF1UqhYa',
@@ -582,7 +516,8 @@ const CONFIG = {
   uploadApi:'https://rahmad-elaina.my.id/upload'
 };
 
-const STATE = {
+/* ===== STATE ===== */
+var STATE={
   currentScreen:'login',currentView:'home',dashboardOpen:false,
   deployFiles:[],deployRunning:false,deployPaused:false,deployMissingData:[],
   musicPlaying:false,musicList:[],musicIndex:0,
@@ -590,52 +525,54 @@ const STATE = {
   bios:[]
 };
 
-/* ===== UTILITAS ===== */
-const $=s=>document.querySelector(s);
-const $$=s=>document.querySelectorAll(s);
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+/* ===== UTILS ===== */
+function $(s){return document.querySelector(s);}
+function $$(s){return document.querySelectorAll(s);}
+function formatSize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
 
-function toast(msg,type='info'){
-  const c=$('#toast-container'),t=document.createElement('div');
+function toast(msg,type){
+  type=type||'info';
+  var c=$('#toast-container'),t=document.createElement('div');
   t.className='toast '+type;t.textContent=msg;c.appendChild(t);
-  setTimeout(()=>{t.style.animation='toastOut .3s ease forwards';setTimeout(()=>t.remove(),300);},3000);
+  setTimeout(function(){t.style.animation='toastOut .3s ease forwards';setTimeout(function(){t.remove();},300);},3000);
 }
 
 function fileToBase64(file){
-  return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(file);});
+  return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(file);});
 }
-
-function formatSize(b){if(b<1024)return b+' B';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB';}
 
 /* ===== EFEK FREEZE + RIPPLE ===== */
 function initEffects(){
-  document.addEventListener('click',e=>{
-    // Freeze
-    const btn=e.target.closest('.ripple-wrap');
-    if(btn){btn.classList.remove('freeze-click');void btn.offsetWidth;btn.classList.add('freeze-click');btn.addEventListener('animationend',()=>btn.classList.remove('freeze-click'),{once:true});}
-    // Ripple
-    const rp=e.target.closest('.ripple-wrap');
-    if(rp&&rp.style.overflow!=='visible'){
-      const rect=rp.getBoundingClientRect();
-      const circle=document.createElement('div');
+  document.addEventListener('click',function(e){
+    var btn=e.target.closest('.ripple-wrap');
+    if(btn){
+      btn.classList.remove('freeze-click');
+      void btn.offsetWidth;
+      btn.classList.add('freeze-click');
+      btn.addEventListener('animationend',function(){btn.classList.remove('freeze-click');},{once:true});
+    }
+    if(btn&&getComputedStyle(btn).overflow!=='visible'){
+      var rect=btn.getBoundingClientRect();
+      var circle=document.createElement('div');
       circle.className='ripple-circle';
-      const size=Math.max(rect.width,rect.height);
+      var size=Math.max(rect.width,rect.height);
       circle.style.width=circle.style.height=size+'px';
       circle.style.left=(e.clientX-rect.left-size/2)+'px';
       circle.style.top=(e.clientY-rect.top-size/2)+'px';
-      rp.appendChild(circle);
-      circle.addEventListener('animationend',()=>circle.remove());
+      btn.appendChild(circle);
+      circle.addEventListener('animationend',function(){circle.remove();});
     }
   });
 }
 
 /* ===== VIDEO ===== */
 function setVideoBg(vid,url,fb){
-  if(url&&url.trim()){vid.src=url;vid.style.display='block';if(fb)fb.style.display='none';vid.play().catch(()=>{});}
+  if(url&&url.trim()){vid.src=url;vid.style.display='block';if(fb)fb.style.display='none';vid.play().catch(function(){});}
   else{vid.pause();vid.removeAttribute('src');vid.style.display='none';if(fb)fb.style.display='flex';}
 }
+
 function applyAllVideos(){
-  const s=STATE.settings;
+  var s=STATE.settings;
   setVideoBg($('#login-bg-video'),s.bgLogin);
   setVideoBg($('#main-bg-video'),s.bgMain);
   setVideoBg($('#main-banner-video'),s.bannerMain,$('#main-banner-fallback'));
@@ -643,232 +580,342 @@ function applyAllVideos(){
   setVideoBg($('#upload-banner-video'),s.bannerUpload,$('#upload-banner-fallback'));
 }
 
-/* ===== NAVIGASI ===== */
+/* ===== NAVIGASI LAYAR ===== */
 function showScreen(name){
-  $$('.screen').forEach(s=>s.classList.remove('active'));
-  setTimeout(()=>{const sc=$(`#${name}-screen`);if(sc)sc.classList.add('active');},40);
+  $$('.screen').forEach(function(s){s.classList.remove('active');});
+  var sc=$('#'+name+'-screen');
+  if(sc) sc.classList.add('active');
   STATE.currentScreen=name;
 }
+
 function showView(name){
-  $$('.sub-content').forEach(v=>v.classList.remove('active'));
-  const vw=$(`#${name}-view`);if(vw)vw.classList.add('active');
+  $$('.sub-content').forEach(function(v){v.classList.remove('active');});
+  var vw=$('#'+name+'-view');
+  if(vw) vw.classList.add('active');
   STATE.currentView=name;
-  $$('.dash-menu-item[data-view]').forEach(m=>m.classList.toggle('active',m.dataset.view===name));
+  $$('.dash-menu-item[data-view]').forEach(function(m){m.classList.toggle('active',m.dataset.view===name);});
   closeDashboard();
 }
 
 /* ===== DASHBOARD ===== */
 function openDashboard(){STATE.dashboardOpen=true;$('#dashboard-panel').classList.add('open');$('#dash-overlay').classList.add('show');$('#menu-btn').classList.add('open');}
 function closeDashboard(){STATE.dashboardOpen=false;$('#dashboard-panel').classList.remove('open');$('#dash-overlay').classList.remove('show');$('#menu-btn').classList.remove('open');}
-function toggleDashboard(){STATE.dashboardOpen?closeDashboard():openDashboard();}
+function toggleDashboard(){if(STATE.dashboardOpen)closeDashboard();else openDashboard();}
 
 /* ===== LOGIN ===== */
-async function handleLogin(){
-  const u=$('#login-user').value.trim(),p=$('#login-pass').value;
-  if(u!==CONFIG.loginUser||p!==CONFIG.loginPass){toast('Username atau password salah!','error');return;}
-  toast('Login berhasil!','success');await sleep(500);
-  if(STATE.settings.bgIntro&&STATE.settings.bgIntro.trim()){
-    showScreen('intro');const iv=$('#intro-video');iv.src=STATE.settings.bgIntro;iv.muted=false;$('#skip-btn').style.display='block';
-    try{await iv.play();}catch(e){}
-    iv.onended=()=>goToMain();
-  }else goToMain();
-}
-function skipIntro(){const v=$('#intro-video');v.pause();v.muted=true;v.removeAttribute('src');goToMain();}
-function goToMain(){$('#skip-btn').style.display='none';showScreen('main');applyAllVideos();if(STATE.musicList.length>0)$('#music-widget').classList.add('show');}
+function handleLogin(){
+  var errEl=$('#login-error');
+  var btnEl=$('#btn-login');
+  var user=$('#login-user').value.trim();
+  var pass=$('#login-pass').value.trim();
 
-/* ===== DEPLOY ===== */
-class DeployTerminal{
-  constructor(el){this.el=el;this.queue=[];this.running=false;}
-  add(t,c='green',d=350){this.queue.push({t,c,d});}
-  async run(){this.running=true;while(this.queue.length&&this.running){const i=this.queue.shift();await this._type(i.t,i.c,i.d);}this.running=false;}
-  async _type(text,color,delay){
-    const l=document.createElement('div');l.className='t-line '+color;this.el.appendChild(l);
-    for(let i=0;i<text.length;i++){if(!this.running)break;l.textContent=text.substring(0,i+1);this.el.scrollTop=this.el.scrollHeight;await sleep(10+Math.random()*14);}
-    await sleep(delay);
+  if(!user||!pass){
+    errEl.textContent='Username dan password tidak boleh kosong';
+    errEl.classList.add('show');
+    return;
   }
-  stop(){this.running=false;}
-  clear(){this.el.innerHTML='';this.queue=[];}
+
+  if(user!==CONFIG.loginUser||pass!==CONFIG.loginPass){
+    errEl.textContent='Username atau password salah';
+    errEl.classList.add('show');
+    return;
+  }
+
+  errEl.classList.remove('show');
+  errEl.textContent='';
+  btnEl.classList.add('loading');
+
+  setTimeout(function(){
+    btnEl.classList.remove('loading');
+    toast('Login berhasil!','success');
+
+    if(STATE.settings.bgIntro&&STATE.settings.bgIntro.trim()){
+      showScreen('intro');
+      var iv=$('#intro-video');
+      iv.src=STATE.settings.bgIntro;
+      iv.muted=false;
+      $('#skip-btn').style.display='block';
+      iv.play().catch(function(){});
+      iv.onended=function(){goToMain();};
+    }else{
+      goToMain();
+    }
+  },600);
 }
 
-let deployTerminal=null;
+function skipIntro(){
+  var v=$('#intro-video');
+  v.pause();v.removeAttribute('src');
+  goToMain();
+}
 
-async function startDeploy(){
-  const files=STATE.deployFiles,repoName=$('#deploy-repo-name').value.trim(),method=$('#deploy-method').value;
+function goToMain(){
+  $('#skip-btn').style.display='none';
+  showScreen('main');
+  applyAllVideos();
+  if(STATE.musicList.length>0){
+    $('#music-widget').classList.add('show');
+  }
+}
+
+/* ===== DEPLOY TERMINAL ===== */
+function DeployTerminal(el){
+  this.el=el;this.queue=[];this.running=false;
+}
+DeployTerminal.prototype.add=function(t,c,d){this.queue.push({t:t,c:c||'green',d:d||350});};
+DeployTerminal.prototype.run=function(cb){
+  var self=this;this.running=true;
+  (function next(){
+    if(!self.running||!self.queue.length){self.running=false;if(cb)cb();return;}
+    var item=self.queue.shift();
+    self._type(item.t,item.c,item.d,next);
+  })();
+};
+DeployTerminal.prototype._type=function(text,color,delay,cb){
+  var self=this;var l=document.createElement('div');l.className='t-line '+color;this.el.appendChild(l);
+  var i=0;
+  (function tick(){
+    if(!self.running){if(cb)cb();return;}
+    if(i<text.length){l.textContent=text.substring(0,i+1);self.el.scrollTop=self.el.scrollHeight;i++;setTimeout(tick,10+Math.random()*14);}
+    else{self.el.scrollTop=self.el.scrollHeight;setTimeout(function(){if(cb)cb();},delay);}
+  })();
+};
+DeployTerminal.prototype.stop=function(){this.running=false;};
+DeployTerminal.prototype.clear=function(){this.el.innerHTML='';this.queue=[];};
+
+var deployTerminal=null;
+
+function startDeploy(){
+  var files=STATE.deployFiles;
+  var repoName=$('#deploy-repo-name').value.trim();
+  var method=$('#deploy-method').value;
   if(!files.length){toast('Pilih file terlebih dahulu!','error');return;}
   if(!repoName){toast('Masukkan nama repo/project!','error');return;}
-  $('#deploy-form-section').style.display='none';$('#deploy-terminal').style.display='block';$('#deploy-progress-wrap').style.display='block';$('#deploy-progress-bar').style.width='0%';
-  deployTerminal=new DeployTerminal($('#terminal-output'));STATE.deployRunning=true;STATE.deployPaused=false;
+  $('#deploy-form-section').style.display='none';
+  $('#deploy-terminal').style.display='block';
+  $('#deploy-progress-wrap').style.display='block';
+  $('#deploy-progress-bar').style.width='0%';
+  deployTerminal=new DeployTerminal($('#terminal-output'));
+  STATE.deployRunning=true;STATE.deployPaused=false;
   deployTerminal.add('$ genz-xqx deploy --init','cyan',250);
   deployTerminal.add('========================================','white',80);
-  deployTerminal.add(`[INFO] Metode: ${method==='direct'?'Deploy Langsung ke Vercel':'Push GitHub + Deploy Vercel'}`,'green',180);
-  deployTerminal.add(`[INFO] Project: ${repoName}`,'green',180);
-  deployTerminal.add(`[INFO] Total file: ${files.length}`,'green',180);
+  deployTerminal.add('[INFO] Metode: '+(method==='direct'?'Deploy Langsung ke Vercel':'Push GitHub + Deploy Vercel'),'green',180);
+  deployTerminal.add('[INFO] Project: '+repoName,'green',180);
+  deployTerminal.add('[INFO] Total file: '+files.length,'green',180);
   deployTerminal.add('========================================','white',180);
-  await deployTerminal.run();
-  const missing=await scanForMissingData(files);
-  if(missing.length>0){
-    STATE.deployPaused=true;STATE.deployMissingData=missing;
-    for(const m of missing){deployTerminal.add(`[WARNING] ${m.message}`,'yellow',280);deployTerminal.add(`  -> Dibutuhkan: ${m.fields.join(', ')}`,'yellow',180);}
-    deployTerminal.add('','white',80);deployTerminal.add('[PAUSED] Masukkan data yang kurang di kolom chat bawah...','yellow',280);
-    await deployTerminal.run();return;
-  }
-  await executeDeploy(files,repoName,method);
+  deployTerminal.run(function(){
+    scanForMissingData(files).then(function(missing){
+      if(missing.length>0){
+        STATE.deployPaused=true;STATE.deployMissingData=missing;
+        for(var i=0;i<missing.length;i++){
+          (function(m){deployTerminal.add('[WARNING] '+m.message,'yellow',280);deployTerminal.add('  -> Dibutuhkan: '+m.fields.join(', '),'yellow',180);})(missing[i]);
+        }
+        deployTerminal.add('','white',80);deployTerminal.add('[PAUSED] Masukkan data yang kurang di kolom chat bawah...','yellow',280);deployTerminal.run();return;
+      }
+      executeDeploy(files,repoName,method);
+    });
+  });
 }
 
-async function scanForMissingData(files){
-  const issues=[];
-  for(const f of files){try{const c=f.data?atob(f.data):'';
-    if(c.toLowerCase().includes('supabase')&&(c.includes('YOUR_')||(c.includes('supabaseUrl')&&c.includes('""'))))
-      {if(!issues.find(i=>i.type==='supabase'))issues.push({type:'supabase',message:'Konfigurasi Supabase terdeteksi tapi nilainya kosong',fields:['SUPABASE_URL','SUPABASE_ANON_KEY']});}
-    if(c.toLowerCase().includes('firebase')&&c.includes('YOUR_'))
-      {if(!issues.find(i=>i.type==='firebase'))issues.push({type:'firebase',message:'Konfigurasi Firebase terdeteksi tapi nilainya kosong',fields:['FIREBASE_API_KEY','FIREBASE_PROJECT_ID']});}
-    if((c.includes('API_KEY')||c.includes('api_key'))&&(c.includes('YOUR_')||c.includes('xxx')))
-      {if(!issues.find(i=>i.type==='api_key'))issues.push({type:'api_key',message:'API Key placeholder terdeteksi',fields:['API_KEY']});}
-  }catch(e){}}
-  return issues;
+function scanForMissingData(files){
+  var issues=[];
+  files.forEach(function(f){try{var c=f.data?atob(f.data):'';
+    if(c.toLowerCase().includes('supabase')&&(c.includes('YOUR_')||(c.includes('supabaseUrl')&&c.includes('""')))){if(!issues.find(function(i){return i.type==='supabase';}))issues.push({type:'supabase',message:'Konfigurasi Supabase terdeteksi tapi nilainya kosong',fields:['SUPABASE_URL','SUPABASE_ANON_KEY']});}
+    if(c.toLowerCase().includes('firebase')&&c.includes('YOUR_')){if(!issues.find(function(i){return i.type==='firebase';}))issues.push({type:'firebase',message:'Konfigurasi Firebase terdeteksi tapi nilainya kosong',fields:['FIREBASE_API_KEY','FIREBASE_PROJECT_ID']});}
+    if((c.includes('API_KEY')||c.includes('api_key'))&&(c.includes('YOUR_')||c.includes('xxx'))){if(!issues.find(function(i){return i.type==='api_key';}))issues.push({type:'api_key',message:'API Key placeholder terdeteksi',fields:['API_KEY']});}
+  }catch(e){}});
+  return Promise.resolve(issues);
 }
 
-async function handleTerminalInput(){
-  const inp=$('#terminal-input'),val=inp.value.trim();if(!val)return;inp.value='';
+function handleTerminalInput(){
+  var inp=$('#terminal-input'),val=inp.value.trim();if(!val)return;inp.value='';
   if(!deployTerminal)return;
-  deployTerminal.add(`> ${val}`,'cyan',80);await deployTerminal.run();
-  if(STATE.deployPaused&&STATE.deployMissingData.length>0){
-    STATE.deployMissingData.shift();
-    deployTerminal.add('[OK] Data diterima','green',180);await deployTerminal.run();
-    if(!STATE.deployMissingData.length){STATE.deployPaused=false;deployTerminal.add('[RESUMED] Semua data lengkap, melanjutkan deploy...','green',280);await deployTerminal.run();await executeDeploy(STATE.deployFiles,$('#deploy-repo-name').value.trim(),$('#deploy-method').value);}
-    else{deployTerminal.add(`[WAITING] Masih ada ${STATE.deployMissingData.length} data yang kurang...`,'yellow',180);await deployTerminal.run();}
-  }
+  deployTerminal.add('> '+val,'cyan',80);
+  deployTerminal.run(function(){
+    if(STATE.deployPaused&&STATE.deployMissingData.length>0){
+      STATE.deployMissingData.shift();
+      deployTerminal.add('[OK] Data diterima','green',180);
+      deployTerminal.run(function(){
+        if(!STATE.deployMissingData.length){
+          STATE.deployPaused=false;deployTerminal.add('[RESUMED] Semua data lengkap, melanjutkan deploy...','green',280);
+          deployTerminal.run(function(){executeDeploy(STATE.deployFiles,$('#deploy-repo-name').value.trim(),$('#deploy-method').value);});
+        }else{deployTerminal.add('[WAITING] Masih ada '+STATE.deployMissingData.length+' data yang kurang...','yellow',180);deployTerminal.run();}
+      });
+    }
+  });
 }
 
-async function executeDeploy(files,repoName,method){
-  const setP=p=>{$('#deploy-progress-bar').style.width=p+'%';};
-  try{
-    if(method==='direct'){
-      deployTerminal.add('[STEP 1/3] Membuat project di Vercel...','green',280);await deployTerminal.run();setP(10);
-      const cp=await fetch('https://api.vercel.com/v9/projects',{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.vercelToken}`,'Content-Type':'application/json'},body:JSON.stringify({name:repoName})});
-      if(!cp.ok){const ed=await cp.json().catch(()=>({}));
-        if(cp.status===409){deployTerminal.add('[INFO] Project sudah ada, melanjutkan...','yellow',180);await deployTerminal.run();}
-        else{deployTerminal.add(`[ERROR] Gagal membuat project: ${ed.error?.message||cp.statusText}`,'red',350);await deployTerminal.run();setP(0);return;}
-      }else{deployTerminal.add('[OK] Project berhasil dibuat','green',180);await deployTerminal.run();}
-      setP(30);deployTerminal.add('[STEP 2/3] Mengupload file...','green',280);await deployTerminal.run();
-      const vf=files.map(f=>({file:f.name,data:f.data}));setP(50);
-      deployTerminal.add('[STEP 3/3] Mendeploy ke Vercel...','green',280);await deployTerminal.run();setP(70);
-      const dr=await fetch('https://api.vercel.com/v13/deployments',{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.vercelToken}`,'Content-Type':'application/json'},body:JSON.stringify({name:repoName,files:vf,projectSettings:{framework:null}})});
-      setP(90);
-      if(!dr.ok){const ed=await dr.json().catch(()=>({}));deployTerminal.add(`[ERROR] Deploy gagal: ${ed.error?.message||dr.statusText}`,'red',350);await deployTerminal.run();setP(0);return;}
-      const dd=await dr.json();setP(100);const url=dd.url?`https://${dd.url}`:'Tidak tersedia';
-      deployTerminal.add('========================================','white',80);deployTerminal.add('[SUCCESS] Deploy berhasil!','green',280);deployTerminal.add(`[URL] ${url}`,'cyan',280);deployTerminal.add('========================================','white',80);await deployTerminal.run();toast('Deploy berhasil!','success');
-    }else{
-      deployTerminal.add('[STEP 1/5] Membuat repository GitHub...','green',280);await deployTerminal.run();setP(10);
-      const cr=await fetch('https://api.github.com/user/repos',{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.githubToken}`,'Content-Type':'application/json'},body:JSON.stringify({name:repoName,auto_init:false,private:false})});
-      if(!cr.ok){const ed=await cr.json().catch(()=>({}));
-        if(cr.status===422){deployTerminal.add('[INFO] Repo sudah ada, melanjutkan push...','yellow',180);await deployTerminal.run();}
-        else{deployTerminal.add(`[ERROR] Gagal membuat repo: ${ed.message||cr.statusText}`,'red',350);await deployTerminal.run();setP(0);return;}
-      }else{deployTerminal.add('[OK] Repository berhasil dibuat','green',180);await deployTerminal.run();}
-      setP(20);
-      const ur=await fetch('https://api.github.com/user',{headers:{'Authorization':`Bearer ${CONFIG.githubToken}`}});const ud=await ur.json();const owner=ud.login||'user';
-      deployTerminal.add(`[INFO] Owner: ${owner}`,'green',180);deployTerminal.add('[STEP 2/5] Membuat blobs...','green',280);await deployTerminal.run();setP(30);
-      const treeItems=[];
-      for(const f of files){
-        const br=await fetch(`https://api.github.com/repos/${owner}/${repoName}/git/blobs`,{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.githubToken}`,'Content-Type':'application/json'},body:JSON.stringify({content:f.data,encoding:'base64'})});
-        if(br.ok){const b=await br.json();treeItems.push({path:f.name,mode:'100644',type:'blob',sha:b.sha});}
-        else{deployTerminal.add(`[WARNING] Gagal upload blob: ${f.name}`,'yellow',180);await deployTerminal.run();}
-        setP(30+(treeItems.length/files.length)*20);
-      }
-      deployTerminal.add(`[OK] ${treeItems.length} blobs dibuat`,'green',180);deployTerminal.add('[STEP 3/5] Membuat tree & commit...','green',280);await deployTerminal.run();setP(55);
-      const tr=await fetch(`https://api.github.com/repos/${owner}/${repoName}/git/trees`,{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.githubToken}`,'Content-Type':'application/json'},body:JSON.stringify({tree:treeItems})});
-      if(!tr.ok){const e=await tr.json().catch(()=>({}));deployTerminal.add(`[ERROR] Gagal membuat tree: ${e.message}`,'red',350);await deployTerminal.run();setP(0);return;}
-      const td=await tr.json();
-      const cmr=await fetch(`https://api.github.com/repos/${owner}/${repoName}/git/commits`,{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.githubToken}`,'Content-Type':'application/json'},body:JSON.stringify({message:'Initial commit - GENZ X QX',tree:td.sha})});
-      if(!cmr.ok){deployTerminal.add('[ERROR] Gagal membuat commit','red',350);await deployTerminal.run();setP(0);return;}
-      const cd=await cmr.json();setP(65);
-      let refOk=false;
-      for(const branch of['main','master']){
-        const rr=await fetch(`https://api.github.com/repos/${owner}/${repoName}/git/refs/heads/${branch}`,{method:'PATCH',headers:{'Authorization':`Bearer ${CONFIG.githubToken}`,'Content-Type':'application/json'},body:JSON.stringify({sha:cd.sha})});
-        if(rr.ok){refOk=true;break;}
-      }
-      if(!refOk){deployTerminal.add('[ERROR] Gagal update branch ref','red',350);await deployTerminal.run();setP(0);return;}
-      deployTerminal.add('[OK] File berhasil di-push ke GitHub','green',180);deployTerminal.add('[STEP 4/5] Menghubungkan ke Vercel...','green',280);await deployTerminal.run();setP(75);
-      const vp=await fetch('https://api.vercel.com/v9/projects',{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.vercelToken}`,'Content-Type':'application/json'},body:JSON.stringify({name:repoName,link:{type:'github',repo:`${owner}/${repoName}`}})});
-      if(!vp.ok&&vp.status!==409){const ed=await vp.json().catch(()=>({}));deployTerminal.add(`[WARNING] Vercel project: ${ed.error?.message||vp.statusText}`,'yellow',280);await deployTerminal.run();}
-      else{deployTerminal.add('[OK] Project Vercel terhubung ke GitHub','green',180);await deployTerminal.run();}
-      setP(85);deployTerminal.add('[STEP 5/5] Trigger deployment...','green',280);await deployTerminal.run();setP(90);
-      const tgr=await fetch('https://api.vercel.com/v13/deployments',{method:'POST',headers:{'Authorization':`Bearer ${CONFIG.vercelToken}`,'Content-Type':'application/json'},body:JSON.stringify({name:repoName,source:'github'})});
-      setP(100);
-      if(!tgr.ok&&tgr.status!==409){deployTerminal.add('[WARNING] Auto-trigger gagal, deploy manual dari dashboard Vercel','yellow',280);await deployTerminal.run();}
-      else{deployTerminal.add('[OK] Deployment triggered','green',180);await deployTerminal.run();}
-      deployTerminal.add('========================================','white',80);deployTerminal.add('[SUCCESS] Deploy selesai!','green',280);deployTerminal.add(`[GITHUB] https://github.com/${owner}/${repoName}`,'cyan',280);deployTerminal.add(`[VERCEL] https://${repoName}.vercel.app`,'cyan',280);deployTerminal.add('========================================','white',80);await deployTerminal.run();toast('Deploy berhasil!','success');
+function executeDeploy(files,repoName,method){
+  function setP(p){$('#deploy-progress-bar').style.width=p+'%';}
+  var h={'Authorization':'Bearer '+CONFIG.vercelToken,'Content-Type':'application/json'};
+  var gh={'Authorization':'Bearer '+CONFIG.githubToken,'Content-Type':'application/json'};
+
+  if(method==='direct'){
+    deployTerminal.add('[STEP 1/3] Membuat project di Vercel...','green',280);
+    deployTerminal.run(function(){
+      setP(10);
+      fetch('https://api.vercel.com/v9/projects',{method:'POST',headers:h,body:JSON.stringify({name:repoName})})
+      .then(function(r){if(!r.ok)return r.json().then(function(e){throw new Error(e.error?e.error.message:r.statusText);});return r.json();})
+      .then(function(){deployTerminal.add('[OK] Project berhasil dibuat','green',180);deployTerminal.run(function(){step2();});})
+      .catch(function(e){
+        if((''+e).indexOf('409')>-1||(''+e).indexOf('already exists')>-1){deployTerminal.add('[INFO] Project sudah ada, melanjutkan...','yellow',180);deployTerminal.run(function(){step2();});}
+        else{deployTerminal.add('[ERROR] Gagal membuat project: '+e,'red',350);deployTerminal.run(function(){setP(0);});}
+      });
+    });
+    function step2(){
+      setP(30);deployTerminal.add('[STEP 2/3] Mengupload file...','green',280);
+      deployTerminal.run(function(){
+        var vf=files.map(function(f){return{file:f.name,data:f.data};});setP(50);
+        deployTerminal.add('[STEP 3/3] Mendeploy ke Vercel...','green',280);
+        deployTerminal.run(function(){
+          setP(70);
+          fetch('https://api.vercel.com/v13/deployments',{method:'POST',headers:h,body:JSON.stringify({name:repoName,files:vf,projectSettings:{framework:null}})})
+          .then(function(r){if(!r.ok)return r.json().then(function(e){throw new Error(e.error?e.error.message:r.statusText);});return r.json();})
+          .then(function(dd){setP(100);var url=dd.url?'https://'+dd.url:'Tidak tersedia';
+            deployTerminal.add('========================================','white',80);deployTerminal.add('[SUCCESS] Deploy berhasil!','green',280);deployTerminal.add('[URL] '+url,'cyan',280);deployTerminal.add('========================================','white',80);
+            deployTerminal.run(function(){toast('Deploy berhasil!','success');STATE.deployRunning=false;});
+          }).catch(function(e){deployTerminal.add('[ERROR] Deploy gagal: '+e,'red',350);deployTerminal.run(function(){setP(0);STATE.deployRunning=false;});});
+        });
+      });
     }
-  }catch(err){deployTerminal.add(`[ERROR] Exception: ${err.message}`,'red',350);await deployTerminal.run();setP(0);toast('Deploy gagal: '+err.message,'error');}
-  STATE.deployRunning=false;
+  }else{
+    deployTerminal.add('[STEP 1/5] Membuat repository GitHub...','green',280);
+    deployTerminal.run(function(){
+      setP(10);
+      fetch('https://api.github.com/user/repos',{method:'POST',headers:gh,body:JSON.stringify({name:repoName,auto_init:false,private:false})})
+      .then(function(r){if(!r.ok&&r.status!==422)return r.json().then(function(e){throw new Error(e.message||r.statusText);});return r.json();})
+      .then(function(){deployTerminal.add('[OK] Repository siap','green',180);deployTerminal.run(function(){getOwner();});})
+      .catch(function(e){
+        if((''+e).indexOf('422')>-1||(''+e).indexOf('already exists')>-1){deployTerminal.add('[INFO] Repo sudah ada, melanjutkan...','yellow',180);deployTerminal.run(function(){getOwner();});}
+        else{deployTerminal.add('[ERROR] Gagal membuat repo: '+e,'red',350);deployTerminal.run(function(){setP(0);STATE.deployRunning=false;});}
+      });
+    });
+    function getOwner(){
+      setP(20);
+      fetch('https://api.github.com/user',{headers:{'Authorization':'Bearer '+CONFIG.githubToken}}).then(function(r){return r.json();}).then(function(ud){
+        var owner=ud.login||'user';deployTerminal.add('[INFO] Owner: '+owner,'green',180);deployTerminal.add('[STEP 2/5] Membuat blobs...','green',280);
+        deployTerminal.run(function(){createBlobs(owner,0,[]);});
+      }).catch(function(e){deployTerminal.add('[ERROR] Gagal ambil user info: '+e,'red',350);deployTerminal.run(function(){setP(0);STATE.deployRunning=false;});});
+    }
+    function createBlobs(owner,idx,treeItems){
+      if(idx>=files.length){deployTerminal.add('[OK] '+treeItems.length+' blobs dibuat','green',180);deployTerminal.add('[STEP 3/5] Membuat tree & commit...','green',280);deployTerminal.run(function(){createTree(owner,treeItems);});return;}
+      setP(30+Math.round((idx/files.length)*20));
+      var f=files[idx];
+      fetch('https://api.github.com/repos/'+owner+'/'+repoName+'/git/blobs',{method:'POST',headers:gh,body:JSON.stringify({content:f.data,encoding:'base64'})})
+      .then(function(r){if(!r.ok)throw new Error('Gagal');return r.json();})
+      .then(function(b){treeItems.push({path:f.name,mode:'100644',type:'blob',sha:b.sha});createBlobs(owner,idx+1,treeItems);})
+      .catch(function(){deployTerminal.add('[WARNING] Gagal upload blob: '+f.name,'yellow',180);deployTerminal.run(function(){createBlobs(owner,idx+1,treeItems);});});
+    }
+    function createTree(owner,treeItems){
+      setP(55);
+      fetch('https://api.github.com/repos/'+owner+'/'+repoName+'/git/trees',{method:'POST',headers:gh,body:JSON.stringify({tree:treeItems})})
+      .then(function(r){if(!r.ok)throw new Error('Gagal');return r.json();})
+      .then(function(td){return fetch('https://api.github.com/repos/'+owner+'/'+repoName+'/git/commits',{method:'POST',headers:gh,body:JSON.stringify({message:'Initial commit - GENZ X QX',tree:td.sha})}).then(function(r){if(!r.ok)throw new Error('Gagal');return r.json();}).then(function(cd){return{cd:cd,owner:owner};});})
+      .then(function(d){setP(65);updateRef(d.owner,d.cd.sha);})
+      .catch(function(e){deployTerminal.add('[ERROR] Gagal membuat tree/commit: '+e,'red',350);deployTerminal.run(function(){setP(0);STATE.deployRunning=false;});});
+    }
+    function updateRef(owner,sha){
+      var branches=['main','master'];tryBranch(0);
+      function tryBranch(i){
+        if(i>=branches.length){deployTerminal.add('[ERROR] Gagal update branch ref','red',350);deployTerminal.run(function(){setP(0);STATE.deployRunning=false;});return;}
+        fetch('https://api.github.com/repos/'+owner+'/'+repoName+'/git/refs/heads/'+branches[i],{method:'PATCH',headers:gh,body:JSON.stringify({sha:sha})})
+        .then(function(r){if(!r.ok)throw new Error();return r.json();})
+        .then(function(){deployTerminal.add('[OK] File berhasil di-push ke GitHub','green',180);deployTerminal.add('[STEP 4/5] Menghubungkan ke Vercel...','green',280);deployTerminal.run(function(){connectVercel(owner);});})
+        .catch(function(){tryBranch(i+1);});
+      }
+    }
+    function connectVercel(owner){
+      setP(75);
+      fetch('https://api.vercel.com/v9/projects',{method:'POST',headers:h,body:JSON.stringify({name:repoName,link:{type:'github',repo:owner+'/'+repoName}})})
+      .then(function(r){return{ok:r.ok,status:r.status};})
+      .then(function(res){
+        if(!res.ok&&res.status!==409)deployTerminal.add('[WARNING] Vercel project gagal terhubung','yellow',280);
+        else deployTerminal.add('[OK] Project Vercel terhubung ke GitHub','green',180);
+        deployTerminal.add('[STEP 5/5] Trigger deployment...','green',280);deployTerminal.run(function(){triggerDeploy(owner);});
+      });
+    }
+    function triggerDeploy(owner){
+      setP(90);
+      fetch('https://api.vercel.com/v13/deployments',{method:'POST',headers:h,body:JSON.stringify({name:repoName,source:'github'})})
+      .then(function(r){return{ok:r.ok,status:r.status};})
+      .then(function(res){
+        setP(100);
+        if(!res.ok&&res.status!==409)deployTerminal.add('[WARNING] Auto-trigger gagal, deploy manual dari dashboard Vercel','yellow',280);
+        else deployTerminal.add('[OK] Deployment triggered','green',180);
+        deployTerminal.add('========================================','white',80);deployTerminal.add('[SUCCESS] Deploy selesai!','green',280);
+        deployTerminal.add('[GITHUB] https://github.com/'+owner+'/'+repoName,'cyan',280);deployTerminal.add('[VERCEL] https://'+repoName+'.vercel.app','cyan',280);
+        deployTerminal.add('========================================','white',80);deployTerminal.run(function(){toast('Deploy berhasil!','success');STATE.deployRunning=false;});
+      });
+    }
+  }
 }
 
 /* ===== UPLOAD ===== */
-async function handleUpload(){
-  const fi=$('#upload-file');if(!fi.files.length){toast('Pilih file terlebih dahulu!','error');return;}
-  const file=fi.files[0],btn=$('#btn-upload');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>UPLOADING...';
-  try{
-    const fd=new FormData();fd.append('file',file);
-    const res=await fetch(CONFIG.uploadApi,{method:'POST',body:fd});const data=await res.json();
-    const url=data.url||data.link||data.result?.url||data.data?.url||'';
+function handleUpload(){
+  var fi=$('#upload-file');if(!fi.files.length){toast('Pilih file terlebih dahulu!','error');return;}
+  var file=fi.files[0],btn=$('#btn-upload');btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin" style="margin-right:8px;"></i>UPLOADING...';
+  var fd=new FormData();fd.append('file',file);
+  fetch(CONFIG.uploadApi,{method:'POST',body:fd}).then(function(r){return r.json();})
+  .then(function(data){
+    var url=data.url||data.link||(data.result&&data.result.url)||(data.data&&data.data.url)||'';
     if(url){$('#upload-link').value=url;$('#upload-result').classList.add('show');toast('Upload berhasil!','success');}
     else toast('Upload gagal: '+(data.message||'Respons tidak diketahui'),'error');
-  }catch(err){toast('Upload gagal: '+err.message,'error');}
-  btn.disabled=false;btn.innerHTML='<i class="fas fa-upload" style="margin-right:8px;"></i>UPLOAD';
+  }).catch(function(err){toast('Upload gagal: '+err.message,'error');})
+  .finally(function(){btn.disabled=false;btn.innerHTML='<i class="fas fa-upload" style="margin-right:8px;"></i>UPLOAD';});
 }
-function copyUploadLink(){const i=$('#upload-link');i.select();navigator.clipboard.writeText(i.value).then(()=>toast('Link disalin!','success')).catch(()=>{document.execCommand('copy');toast('Link disalin!','success');});}
+
+function copyUploadLink(){
+  var i=$('#upload-link');i.select();
+  if(navigator.clipboard)navigator.clipboard.writeText(i.value).then(function(){toast('Link disalin!','success');});
+  else{document.execCommand('copy');toast('Link disalin!','success');}
+}
 
 /* ===== BIODATA ===== */
-function loadBios(){try{const s=localStorage.getItem('gxq_bios');if(s)STATE.bios=JSON.parse(s);}catch(e){}renderBios();}
+function loadBios(){try{var s=localStorage.getItem('gxq_bios');if(s)STATE.bios=JSON.parse(s);}catch(e){}renderBios();}
 function saveBios(){localStorage.setItem('gxq_bios',JSON.stringify(STATE.bios));}
 function renderBios(){
-  const grid=$('#bio-grid'),empty=$('#bio-empty');grid.querySelectorAll('.bio-block').forEach(b=>b.remove());
+  var grid=$('#bio-grid'),empty=$('#bio-empty');grid.querySelectorAll('.bio-block').forEach(function(b){b.remove();});
   if(!STATE.bios.length){empty.style.display='block';return;}
   empty.style.display='none';
-  STATE.bios.forEach((bio,idx)=>{
-    const b=document.createElement('div');b.className='bio-block glow-box';b.style.position='relative';b.style.animation=`fadeUp .4s ease ${idx*0.08}s both`;
-    b.innerHTML=`${bio.photo?`<img src="${bio.photo}" class="bio-block-img">`:'<div class="bio-block-img fallback"><i class="fas fa-image"></i></div>'}
-    <button class="delete-bio" data-idx="${idx}"><i class="fas fa-times"></i></button>
-    <div class="bio-block-body"><div class="platform"><i class="fas fa-circle" style="font-size:5px;margin-right:5px;vertical-align:middle;"></i>${bio.platform||'Platform'}</div><div class="desc">${bio.desc||'Tidak ada deskripsi'}</div></div>`;
+  STATE.bios.forEach(function(bio,idx){
+    var b=document.createElement('div');b.className='bio-block glow-box';b.style.position='relative';b.style.animation='fadeUp .4s ease '+(idx*0.08)+'s both';
+    b.innerHTML=(bio.photo?'<img src="'+bio.photo+'" class="bio-block-img">':'<div class="bio-block-img fallback"><i class="fas fa-image"></i></div>')+
+      '<button class="delete-bio" data-idx="'+idx+'"><i class="fas fa-times"></i></button>'+
+      '<div class="bio-block-body"><div class="platform"><i class="fas fa-circle" style="font-size:5px;margin-right:5px;vertical-align:middle;"></i>'+(bio.platform||'Platform')+'</div><div class="desc">'+(bio.desc||'Tidak ada deskripsi')+'</div></div>';
     grid.appendChild(b);
   });
-  grid.querySelectorAll('.delete-bio').forEach(btn=>{btn.addEventListener('click',()=>{STATE.bios.splice(parseInt(btn.dataset.idx),1);saveBios();renderBios();toast('Biodata dihapus','info');});});
+  grid.querySelectorAll('.delete-bio').forEach(function(btn){btn.addEventListener('click',function(){STATE.bios.splice(parseInt(btn.dataset.idx),1);saveBios();renderBios();toast('Biodata dihapus','info');});});
 }
-async function saveBio(){
-  const pi=$('#bio-photo'),pl=$('#bio-platform').value,desc=$('#bio-desc').value.trim();
+
+function saveBio(){
+  var pi=$('#bio-photo'),pl=$('#bio-platform').value,desc=$('#bio-desc').value.trim();
   if(!desc){toast('Isi deskripsi terlebih dahulu!','error');return;}
-  let photo='';
-  if(pi.files.length)photo=await new Promise(r=>{const rd=new FileReader();rd.onload=()=>r(rd.result);rd.readAsDataURL(pi.files[0]);});
-  STATE.bios.push({photo,platform:pl,desc});saveBios();renderBios();
-  pi.value='';$('#bio-desc').value='';$('#bio-photo-preview').style.display='none';
-  toast('Biodata disimpan!','success');showView('home');
+  if(pi.files.length){var rd=new FileReader();rd.onload=function(){STATE.bios.push({photo:rd.result,platform:pl,desc:desc});saveBios();renderBios();pi.value='';$('#bio-desc').value='';$('#bio-photo-preview').style.display='none';toast('Biodata disimpan!','success');showView('home');};rd.readAsDataURL(pi.files[0]);}
+  else{STATE.bios.push({photo:'',platform:pl,desc:desc});saveBios();renderBios();pi.value='';$('#bio-desc').value='';$('#bio-photo-preview').style.display='none';toast('Biodata disimpan!','success');showView('home');}
 }
 
 /* ===== MUSIK ===== */
-function loadMusicList(){try{const s=localStorage.getItem('gxq_music');if(s)STATE.musicList=JSON.parse(s);}catch(e){}updateMusicWidget();}
+function loadMusicList(){try{var s=localStorage.getItem('gxq_music');if(s)STATE.musicList=JSON.parse(s);}catch(e){}updateMusicWidget();}
 function updateMusicWidget(){
-  const w=$('#music-widget');if(STATE.musicList.length&&STATE.currentScreen==='main')w.classList.add('show');else w.classList.remove('show');
-  if(STATE.musicList.length){const c=STATE.musicList[STATE.musicIndex];$('#mw-name').textContent=c?c.name:'Tidak ada musik';$('#mw-status').textContent=STATE.musicPlaying?'Now Playing':'Paused';
+  var w=$('#music-widget');if(STATE.musicList.length&&STATE.currentScreen==='main')w.classList.add('show');else w.classList.remove('show');
+  if(STATE.musicList.length){
+    var c=STATE.musicList[STATE.musicIndex];$('#mw-name').textContent=c?c.name:'Tidak ada musik';$('#mw-status').textContent=STATE.musicPlaying?'Now Playing':'Paused';
     $('#mw-play').innerHTML=STATE.musicPlaying?'<i class="fas fa-pause"></i>':'<i class="fas fa-play"></i>';$('#mw-vis').classList.toggle('paused',!STATE.musicPlaying);
-    $('#music-now-playing').textContent='Now Playing: '+(c?c.name:'-');const mp=$('#mp-play');if(mp)mp.innerHTML=STATE.musicPlaying?'<i class="fas fa-pause"></i>':'<i class="fas fa-play"></i>';}
+    $('#music-now-playing').textContent='Now Playing: '+(c?c.name:'-');var mp=$('#mp-play');if(mp)mp.innerHTML=STATE.musicPlaying?'<i class="fas fa-pause"></i>':'<i class="fas fa-play"></i>';
+  }
 }
-function toggleMusic(){const a=$('#global-audio');if(!STATE.musicList.length)return;
-  if(STATE.musicPlaying){a.pause();STATE.musicPlaying=false;}
-  else{if(!a.src||a.src===location.href){const c=STATE.musicList[STATE.musicIndex];if(c&&c.data)a.src=c.data;}a.play().catch(()=>{});STATE.musicPlaying=true;}
-  updateMusicWidget();}
-function playMusicIndex(i){if(i<0||i>=STATE.musicList.length)return;STATE.musicIndex=i;const a=$('#global-audio'),c=STATE.musicList[i];if(c&&c.data){a.src=c.data;a.play().catch(()=>{});STATE.musicPlaying=true;}updateMusicWidget();}
-function prevMusic(){let i=STATE.musicIndex-1;if(i<0)i=STATE.musicList.length-1;playMusicIndex(i);}
-function nextMusic(){let i=STATE.musicIndex+1;if(i>=STATE.musicList.length)i=0;playMusicIndex(i);}
-async function importMusic(){
-  const fi=$('#music-file');if(!fi.files.length)return;const f=fi.files[0];
-  const data=await new Promise(r=>{const rd=new FileReader();rd.onload=()=>r(rd.result);rd.readAsDataURL(f);});
-  STATE.musicList.push({name:f.name,data});
-  $('#music-file-info').style.display='block';$('#music-file-info').textContent=`${f.name} (${formatSize(f.size)}) ditambahkan`;
-  $('#music-player-section').style.display='block';updateMusicWidget();toast('Musik ditambahkan!','success');
+function toggleMusic(){var a=$('#global-audio');if(!STATE.musicList.length)return;if(STATE.musicPlaying){a.pause();STATE.musicPlaying=false;}else{if(!a.src||a.src===location.href){var c=STATE.musicList[STATE.musicIndex];if(c&&c.data)a.src=c.data;}a.play().catch(function(){});STATE.musicPlaying=true;}updateMusicWidget();}
+function playMusicIndex(i){if(i<0||i>=STATE.musicList.length)return;STATE.musicIndex=i;var a=$('#global-audio'),c=STATE.musicList[i];if(c&&c.data){a.src=c.data;a.play().catch(function(){});STATE.musicPlaying=true;}updateMusicWidget();}
+function prevMusic(){var i=STATE.musicIndex-1;if(i<0)i=STATE.musicList.length-1;playMusicIndex(i);}
+function nextMusic(){var i=STATE.musicIndex+1;if(i>=STATE.musicList.length)i=0;playMusicIndex(i);}
+function importMusic(){
+  var fi=$('#music-file');if(!fi.files.length)return;var f=fi.files[0];var rd=new FileReader();
+  rd.onload=function(){STATE.musicList.push({name:f.name,data:rd.result});$('#music-file-info').style.display='block';$('#music-file-info').textContent=f.name+' ('+formatSize(f.size)+') ditambahkan';$('#music-player-section').style.display='block';updateMusicWidget();toast('Musik ditambahkan!','success');};rd.readAsDataURL(f);
 }
 
 /* ===== SETTINGS ===== */
-function loadSettings(){try{const s=localStorage.getItem('gxq_settings');if(s)STATE.settings={...STATE.settings,...JSON.parse(s)};}catch(e){}
+function loadSettings(){
+  try{var s=localStorage.getItem('gxq_settings');if(s)STATE.settings=Object.assign(STATE.settings,JSON.parse(s));}catch(e){}
   $('#set-bg-login').value=STATE.settings.bgLogin||'';$('#set-bg-intro').value=STATE.settings.bgIntro||'';$('#set-bg-main').value=STATE.settings.bgMain||'';
   $('#set-banner-main').value=STATE.settings.bannerMain||'';$('#set-banner-deploy').value=STATE.settings.bannerDeploy||'';$('#set-banner-upload').value=STATE.settings.bannerUpload||'';
 }
@@ -878,65 +925,92 @@ function saveSettings(){
   localStorage.setItem('gxq_settings',JSON.stringify(STATE.settings));applyAllVideos();toast('Setting disimpan!','success');
 }
 
-/* ===== PARTIKEL (pure purple) ===== */
+/* ===== PARTIKEL ===== */
 function initParticles(){
-  const c=$('#particles'),ctx=c.getContext('2d');let w,h,pts=[];
+  var c=$('#particles'),ctx=c.getContext('2d'),w,h,pts=[];
   function resize(){w=c.width=innerWidth;h=c.height=innerHeight;}resize();addEventListener('resize',resize);
-  class P{constructor(){this.reset();}
-    reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.s=Math.random()*1.5+0.4;this.sx=(Math.random()-0.5)*0.3;this.sy=(Math.random()-0.5)*0.3;this.o=Math.random()*0.35+0.08;}
-    update(){this.x+=this.sx;this.y+=this.sy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();}
-    draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(184,61,255,${this.o})`;ctx.fill();}
-  }
-  for(let i=0;i<60;i++)pts.push(new P());
-  (function anim(){ctx.clearRect(0,0,w,h);pts.forEach(p=>{p.update();p.draw();});
-    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-      if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(184,61,255,${0.06*(1-d/110)})`;ctx.lineWidth=0.5;ctx.stroke();}}
-    requestAnimationFrame(anim);})();
+  function P(){this.reset();}
+  P.prototype.reset=function(){this.x=Math.random()*w;this.y=Math.random()*h;this.s=Math.random()*1.5+0.4;this.sx=(Math.random()-0.5)*0.3;this.sy=(Math.random()-0.5)*0.3;this.o=Math.random()*0.35+0.08;};
+  P.prototype.update=function(){this.x+=this.sx;this.y+=this.sy;if(this.x<0||this.x>w||this.y<0||this.y>h)this.reset();};
+  P.prototype.draw=function(){ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle='rgba(184,61,255,'+this.o+')';ctx.fill();};
+  for(var i=0;i<60;i++){var p=new P();pts.push(p);}
+  (function anim(){ctx.clearRect(0,0,w,h);for(var i=0;i<pts.length;i++){pts[i].update();pts[i].draw();}for(var i=0;i<pts.length;i++){for(var j=i+1;j<pts.length;j++){var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(184,61,255,'+(0.06*(1-d/110))+')';ctx.lineWidth=0.5;ctx.stroke();}}}requestAnimationFrame(anim);})();
 }
 
 /* ===== EVENT LISTENERS ===== */
 function initEvents(){
+  /* LOGIN */
   $('#btn-login').addEventListener('click',handleLogin);
-  $('#login-pass').addEventListener('keypress',e=>{if(e.key==='Enter')handleLogin();});
-  $('#login-user').addEventListener('keypress',e=>{if(e.key==='Enter')$('#login-pass').focus();});
+  $('#login-pass').addEventListener('keydown',function(e){if(e.key==='Enter')handleLogin();});
+  $('#login-user').addEventListener('keydown',function(e){if(e.key==='Enter')$('#login-pass').focus();});
+  $('#login-user').addEventListener('input',function(){$('#login-error').classList.remove('show');});
+  $('#login-pass').addEventListener('input',function(){$('#login-error').classList.remove('show');});
+
+  /* INTRO */
   $('#skip-btn').addEventListener('click',skipIntro);
+
+  /* DASHBOARD */
   $('#menu-btn').addEventListener('click',toggleDashboard);
   $('#dash-overlay').addEventListener('click',closeDashboard);
-  $$('.dash-menu-item[data-view]').forEach(i=>i.addEventListener('click',()=>showView(i.dataset.view)));
-  $('#btn-logout').addEventListener('click',()=>{const a=$('#global-audio');a.pause();a.removeAttribute('src');STATE.musicPlaying=false;STATE.musicList=[];closeDashboard();showScreen('login');
-    $('#deploy-form-section').style.display='block';$('#deploy-terminal').style.display='none';$('#deploy-progress-wrap').style.display='none';if(deployTerminal)deployTerminal.clear();toast('Berhasil logout','info');});
+  $$('.dash-menu-item[data-view]').forEach(function(i){i.addEventListener('click',function(){showView(i.dataset.view);});});
 
-  // Deploy file
-  const df=$('#deploy-file');
-  df.addEventListener('change',async()=>{if(!df.files.length)return;const f=df.files[0];$('#deploy-file-info').style.display='block';$('#deploy-file-info').textContent=`${f.name} (${formatSize(f.size)})`;
-    if(f.name.endsWith('.zip')){try{const zip=await JSZip.loadAsync(f);STATE.deployFiles=[];const en=[];zip.forEach((p,e)=>{if(!e.dir)en.push({p,e});});
-      for(const{p,e}of en){const d=await e.async('base64');STATE.deployFiles.push({name:p,data:d});}$('#deploy-file-info').textContent+=` -> ${STATE.deployFiles.length} file diekstrak`;}catch(e){toast('Gagal membuka ZIP: '+e.message,'error');}}
-    else{const d=await fileToBase64(f);STATE.deployFiles=[{name:f.name,data:d}];}});
-  const dd=$('#deploy-drop');dd.addEventListener('dragover',e=>{e.preventDefault();dd.classList.add('dragover');});dd.addEventListener('dragleave',()=>dd.classList.remove('dragover'));
-  dd.addEventListener('drop',e=>{e.preventDefault();dd.classList.remove('dragover');if(e.dataTransfer.files.length){df.files=e.dataTransfer.files;df.dispatchEvent(new Event('change'));}});
+  /* LOGOUT */
+  $('#btn-logout').addEventListener('click',function(){
+    var a=$('#global-audio');a.pause();a.removeAttribute('src');STATE.musicPlaying=false;STATE.musicList=[];closeDashboard();showScreen('login');
+    $('#deploy-form-section').style.display='block';$('#deploy-terminal').style.display='none';$('#deploy-progress-wrap').style.display='none';
+    if(deployTerminal)deployTerminal.clear();toast('Berhasil logout','info');
+  });
+
+  /* DEPLOY FILE */
+  var df=$('#deploy-file');
+  df.addEventListener('change',function(){
+    if(!df.files.length)return;var f=df.files[0];$('#deploy-file-info').style.display='block';$('#deploy-file-info').textContent=f.name+' ('+formatSize(f.size)+')';
+    if(f.name.endsWith('.zip')){
+      JSZip.loadAsync(f).then(function(zip){STATE.deployFiles=[];var en=[];zip.forEach(function(p,e){if(!e.dir)en.push({p:p,e:e});});
+        return Promise.all(en.map(function(item){return item.e.async('base64').then(function(d){STATE.deployFiles.push({name:item.p,data:d});});}));
+      }).then(function(){$('#deploy-file-info').textContent+=' -> '+STATE.deployFiles.length+' file diekstrak';}).catch(function(e){toast('Gagal membuka ZIP: '+e.message,'error');});
+    }else{fileToBase64(f).then(function(d){STATE.deployFiles=[{name:f.name,data:d}];});}
+  });
+  var dd=$('#deploy-drop');dd.addEventListener('dragover',function(e){e.preventDefault();dd.classList.add('dragover');});dd.addEventListener('dragleave',function(){dd.classList.remove('dragover');});
+  dd.addEventListener('drop',function(e){e.preventDefault();dd.classList.remove('dragover');if(e.dataTransfer.files.length){df.files=e.dataTransfer.files;df.dispatchEvent(new Event('change'));}});
   $('#btn-deploy').addEventListener('click',startDeploy);
-  $('#terminal-send').addEventListener('click',handleTerminalInput);$('#terminal-input').addEventListener('keypress',e=>{if(e.key==='Enter')handleTerminalInput();});
+  $('#terminal-send').addEventListener('click',handleTerminalInput);
+  $('#terminal-input').addEventListener('keydown',function(e){if(e.key==='Enter')handleTerminalInput();});
 
-  // Upload
-  const uf=$('#upload-file');uf.addEventListener('change',()=>{if(uf.files.length){const f=uf.files[0];$('#upload-file-info').style.display='block';$('#upload-file-info').textContent=`${f.name} (${formatSize(f.size)})`;$('#upload-result').classList.remove('show');}});
-  const ud=$('#upload-drop');ud.addEventListener('dragover',e=>{e.preventDefault();ud.classList.add('dragover');});ud.addEventListener('dragleave',()=>ud.classList.remove('dragover'));
-  ud.addEventListener('drop',e=>{e.preventDefault();ud.classList.remove('dragover');if(e.dataTransfer.files.length){uf.files=e.dataTransfer.files;uf.dispatchEvent(new Event('change'));}});
-  $('#btn-upload').addEventListener('click',handleUpload);$('#btn-copy-link').addEventListener('click',copyUploadLink);
+  /* UPLOAD */
+  var uf=$('#upload-file');uf.addEventListener('change',function(){if(uf.files.length){var f=uf.files[0];$('#upload-file-info').style.display='block';$('#upload-file-info').textContent=f.name+' ('+formatSize(f.size)+')';$('#upload-result').classList.remove('show');}});
+  var ud=$('#upload-drop');ud.addEventListener('dragover',function(e){e.preventDefault();ud.classList.add('dragover');});ud.addEventListener('dragleave',function(){ud.classList.remove('dragover');});
+  ud.addEventListener('drop',function(e){e.preventDefault();ud.classList.remove('dragover');if(e.dataTransfer.files.length){uf.files=e.dataTransfer.files;uf.dispatchEvent(new Event('change'));}});
+  $('#btn-upload').addEventListener('click',handleUpload);
+  $('#btn-copy-link').addEventListener('click',copyUploadLink);
 
-  // Bio
-  const bp=$('#bio-photo');bp.addEventListener('change',()=>{if(bp.files.length){const r=new FileReader();r.onload=()=>{$('#bio-preview-img').src=r.result;$('#bio-photo-preview').style.display='block';};r.readAsDataURL(bp.files[0]);}});
+  /* BIODATA */
+  var bp=$('#bio-photo');bp.addEventListener('change',function(){if(bp.files.length){var r=new FileReader();r.onload=function(){$('#bio-preview-img').src=r.result;$('#bio-photo-preview').style.display='block';};r.readAsDataURL(bp.files[0]);}});
   $('#btn-save-bio').addEventListener('click',saveBio);
 
-  // Music
-  $('#music-file').addEventListener('change',importMusic);$('#mw-play').addEventListener('click',toggleMusic);$('#mp-play').addEventListener('click',toggleMusic);$('#mp-prev').addEventListener('click',prevMusic);$('#mp-next').addEventListener('click',nextMusic);
+  /* MUSIC */
+  $('#music-file').addEventListener('change',importMusic);
+  $('#mw-play').addEventListener('click',toggleMusic);
+  $('#mp-play').addEventListener('click',toggleMusic);
+  $('#mp-prev').addEventListener('click',prevMusic);
+  $('#mp-next').addEventListener('click',nextMusic);
   $('#global-audio').addEventListener('ended',nextMusic);
 
-  // Settings
+  /* SETTINGS */
   $('#btn-save-settings').addEventListener('click',saveSettings);
 }
 
 /* ===== INIT ===== */
-function init(){loadSettings();loadBios();loadMusicList();initParticles();initEffects();if(STATE.settings.bgLogin)setVideoBg($('#login-bg-video'),STATE.settings.bgLogin);}
+function init(){
+  loadSettings();
+  loadBios();
+  loadMusicList();
+  initParticles();
+  initEffects();
+  initEvents(); /* <<< INI YANG SEBELUMNYA KETINGGALAN */
+  if(STATE.settings.bgLogin) setVideoBg($('#login-bg-video'),STATE.settings.bgLogin);
+  console.log('GENZ X QX initialized. Login: ' + CONFIG.loginUser);
+}
 document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
